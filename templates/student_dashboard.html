@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Student Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#f0f2f5;
+}
+
+.container{
+    width:500px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-top:30px;
+}
+
+button{
+    padding:10px 20px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+input, textarea{
+    width:90%;
+    padding:10px;
+    margin-top:10px;
+}
+
+a{
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Welcome {{ name }}</h1>
+
+<h2>Register Number: {{ regno }}</h2>
+
+<a href="/my_attendance">
+    <button>View My Attendance</button>
+</a>
+
+<hr>
+
+<h2>Submit Leave Request</h2>
+
+<!-- ✅ FORM IS CORRECT HERE -->
+<form action="/upload_leave"
+      method="POST"
+      enctype="multipart/form-data">
+
+    <input type="hidden" name="student_name" value="{{ name }}">
+    <input type="hidden" name="regno" value="{{ regno }}">
+
+    <label>Reason:</label><br>
+    <textarea name="reason" rows="4" required></textarea>
+
+    <br><br>
+
+    <label>From Date:</label><br>
+    <input type="date" name="from_date" required>
+
+    <br><br>
+
+    <label>To Date:</label><br>
+    <input type="date" name="to_date" required>
+
+    <br><br>
+
+    <label>Upload Leave Letter:</label><br>
+    <input type="file" name="leave_file" required>
+
+    <br><br>
+
+    <button type="submit">Submit Leave Request</button>
+
+</form>
+
+<!-- ✅ THIS BUTTON MUST BE OUTSIDE FORM -->
+<a href="/my_leaves">
+    <button type="button">View My Leave Requests</button>
+</a>
+
+</div>
+
+</body>
+</html>

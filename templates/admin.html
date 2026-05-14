@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f0f2f5;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+.header{
+    background:#007bff;
+    color:white;
+    padding:20px;
+    font-size:28px;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    width:420px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0px 0px 10px gray;
+}
+
+input, select{
+    width:90%;
+    padding:10px;
+    margin:10px;
+    border-radius:5px;
+    border:1px solid gray;
+}
+
+button{
+    padding:12px 20px;
+    margin:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+video{
+    border:2px solid black;
+    margin-top:15px;
+    border-radius:10px;
+}
+
+table{
+    margin:auto;
+    margin-top:30px;
+    width:95%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th, td{
+    border:1px solid black;
+    padding:10px;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+.section-title{
+    margin-top:40px;
+    font-size:24px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+Smart Attendance Admin Dashboard
+</div>
+
+<div class="container">
+
+<!-- ========================= -->
+<!-- ADD STUDENT -->
+<!-- ========================= -->
+<div class="card">
+
+<h2>Add Student</h2>
+
+<form action="/add_student" method="POST">
+
+<input type="text" name="name" placeholder="Student Name" required>
+<input type="text" name="rollno" placeholder="Roll Number" required>
+<input type="text" name="regno" placeholder="Register Number" required>
+<input type="password" name="password" placeholder="Password" required>
+
+<select name="branch" required>
+<option value="">Select Branch</option>
+<option value="CSE">CSE</option>
+<option value="ECE">ECE</option>
+<option value="MECH">MECH</option>
+<option value="CIVIL">CIVIL</option>
+</select>
+
+<select name="semester" required>
+<option value="">Select Semester</option>
+<option>S1</option><option>S2</option><option>S3</option><option>S4</option>
+<option>S5</option><option>S6</option><option>S7</option><option>S8</option>
+</select>
+
+<input type="hidden" name="photo_data" id="photo_data">
+
+<video id="video" width="300" height="220" autoplay></video>
+
+<br>
+
+<button type="button" onclick="capturePhoto()">Capture Photo</button>
+<button type="submit">Add Student</button>
+
+</form>
+
+</div>
+
+<!-- ========================= -->
+<!-- ADD TEACHER (NEW SECTION) -->
+<!-- ========================= -->
+<div class="card">
+
+<h2>Add Teacher</h2>
+
+<form action="/add_teacher" method="POST">
+
+<input type="text" name="name" placeholder="Teacher Name" required>
+
+<input type="text" name="subject" placeholder="Subject (e.g. Python, DBMS)" required>
+
+<input type="password" name="password" placeholder="Teacher Password" required>
+
+<button type="submit">Add Teacher</button>
+
+</form>
+
+<a href="/view_teachers">
+    <button>View Teachers</button>
+</a>
+
+</div>
+
+<!-- ========================= -->
+<!-- ADMIN CONTROLS -->
+<!-- ========================= -->
+<div class="card">
+
+<h2>Admin Controls</h2>
+
+<a href="/view_students">
+<button>View Students</button>
+</a>
+
+<br>
+
+<a href="/timetable">
+<button>Manage Timetable</button>
+</a>
+
+<br>
+
+<a href="/manage_subjects">
+    <button type="button">Manage Subjects</button>
+</a>
+
+<br>
+
+<a href="/leave_requests">
+<button>Leave Requests</button>
+</a>
+
+<br>
+
+
+<a href="/start_monitoring">
+    <button>Start Monitoring</button>
+</a>
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- TABLE INFO -->
+<!-- ========================= -->
+
+<div class="section-title">
+BTech Semester Management
+</div>
+
+<table>
+
+<tr>
+<th>Branch</th>
+<th>Semesters</th>
+<th>Timing</th>
+</tr>
+
+<tr>
+<td>CSE</td><td>S1 - S8</td><td>9:00 AM - 4:00 PM</td>
+</tr>
+
+<tr>
+<td>ECE</td><td>S1 - S8</td><td>9:00 AM - 4:00 PM</td>
+</tr>
+
+<tr>
+<td>MECH</td><td>S1 - S8</td><td>9:00 AM - 4:00 PM</td>
+</tr>
+
+<tr>
+<td>CIVIL</td><td>S1 - S8</td><td>9:00 AM - 4:00 PM</td>
+</tr>
+
+</table>
+
+<script>
+
+const video = document.getElementById('video');
+
+navigator.mediaDevices.getUserMedia({ video:true })
+.then(stream => {
+    video.srcObject = stream;
+});
+
+function capturePhoto(){
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 300;
+    canvas.height = 220;
+
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, 300, 220);
+
+    const imageData = canvas.toDataURL('image/png');
+
+    document.getElementById('photo_data').value = imageData;
+
+    alert("Photo Captured Successfully");
+}
+
+</script>
+
+</body>
+</html>

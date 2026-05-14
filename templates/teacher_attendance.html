@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="30">
+    <title>Teacher Attendance</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+            background: #f2f2f2;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        select, input, button {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Attendance Details</h2>
+
+<!-- FILTER FORM -->
+<form method="GET" action="/teacher_attendance">
+
+    <label>Branch:</label>
+    <select name="branch">
+        <option value="">All</option>
+        <option value="CSE">CSE</option>
+        <option value="ECE">ECE</option>
+        <option value="MECH">MECH</option>
+        <option value="CIVIL">CIVIL</option>
+    </select>
+
+    <label>Semester:</label>
+    <select name="semester">
+        <option value="">All</option>
+        <option value="S1">S1</option>
+        <option value="S2">S2</option>
+        <option value="S3">S3</option>
+        <option value="S4">S4</option>
+        <option value="S5">S5</option>
+        <option value="S6">S6</option>
+        <option value="S7">S7</option>
+        <option value="S8">S8</option>
+    </select>
+
+    <label>Date:</label>
+    <input type="date" name="date">
+
+    <button type="submit">Filter</button>
+
+</form>
+
+<!-- TABLE -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Reg No</th>
+        <th>Name</th>
+        <th>Branch</th>
+        <th>Semester</th>
+        <th>Subject</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Time</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+        <td>{{ row[5] }}</td>
+        <td>{{ row[6] }}</td>
+        <td>{{ row[7] }}</td>
+        <td>{{ row[8] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

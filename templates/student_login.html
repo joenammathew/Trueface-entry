@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Student Login</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f0f2f5;
+    text-align:center;
+}
+
+form{
+    background:white;
+    width:300px;
+    margin:auto;
+    margin-top:100px;
+    padding:20px;
+    border-radius:10px;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px;
+}
+
+button{
+    padding:10px 20px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="/student_login"
+      method="POST">
+
+<h1>Student Login</h1>
+
+<input type="text"
+       name="regno"
+       placeholder="Register Number"
+       required>
+
+<input type="password"
+       name="password"
+       placeholder="Password"
+       required>
+
+<button type="submit">
+Login
+</button>
+
+</form>
+<br><br>
+
+<a href="/forgot_password">
+
+<button type="button">
+
+Forgot Password
+
+</button>
+
+</a>
+<br><br>
+
+<a href="/find_regno">
+
+<button type="button">
+
+Forgot Register Number
+
+</button>
+
+</a>
+</body>
+</html>

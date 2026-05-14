@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Manage Timetable</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    color:#333;
+}
+
+h2{
+    text-align:center;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid gray;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+input,select{
+    width:100%;
+    padding:8px;
+    border-radius:5px;
+    border:1px solid gray;
+    box-sizing:border-box;
+}
+
+button{
+    padding:10px 20px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.form-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    width:50%;
+    margin:auto;
+    box-shadow:0px 0px 10px gray;
+}
+
+.time-table{
+    width:50%;
+    margin:auto;
+    margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Weekly Timetable Management</h1>
+
+<div class="form-box">
+
+<form action="/timetable" method="GET">
+
+<select name="branch" required>
+
+<option value="">Select Branch</option>
+
+<option value="CSE"
+{% if branch=="CSE" %}selected{% endif %}>
+CSE
+</option>
+
+<option value="ECE"
+{% if branch=="ECE" %}selected{% endif %}>
+ECE
+</option>
+
+<option value="MECH"
+{% if branch=="MECH" %}selected{% endif %}>
+MECH
+</option>
+
+<option value="CIVIL"
+{% if branch=="CIVIL" %}selected{% endif %}>
+CIVIL
+</option>
+
+</select>
+
+<br><br>
+
+<select name="semester" required>
+
+<option value="">Select Semester</option>
+
+<option {% if semester=="S1" %}selected{% endif %}>S1</option>
+<option {% if semester=="S2" %}selected{% endif %}>S2</option>
+<option {% if semester=="S3" %}selected{% endif %}>S3</option>
+<option {% if semester=="S4" %}selected{% endif %}>S4</option>
+<option {% if semester=="S5" %}selected{% endif %}>S5</option>
+<option {% if semester=="S6" %}selected{% endif %}>S6</option>
+<option {% if semester=="S7" %}selected{% endif %}>S7</option>
+<option {% if semester=="S8" %}selected{% endif %}>S8</option>
+
+</select>
+
+<br><br>
+
+<center>
+
+<button type="submit">
+
+Load Timetable
+
+</button>
+
+</center>
+
+</form>
+
+</div>
+
+{% if branch and semester %}
+
+<h2>
+
+Branch: {{ branch }}
+|
+Semester: {{ semester }}
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>Day</th>
+
+<th>1st Period</th>
+<th>2nd Period</th>
+<th>3rd Period</th>
+<th>4th Period</th>
+<th>5th Period</th>
+<th>6th Period</th>
+<th>7th Period</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for day in ['Monday','Tuesday','Wednesday','Thursday','Friday'] %}
+
+{% set row_data = namespace(data=None) %}
+
+{% for row in data %}
+    {% if row[3] == day %}
+        {% set row_data.data = row %}
+    {% endif %}
+{% endfor %}
+
+<tr>
+
+<form action="/save_weekly_timetable"
+      method="POST">
+
+<td>
+
+{{ day }}
+
+<input type="hidden"
+       name="day"
+       value="{{ day }}">
+
+<input type="hidden"
+       name="branch"
+       value="{{ branch }}">
+
+<input type="hidden"
+       name="semester"
+       value="{{ semester }}">
+
+</td>
+
+<td>
+<input type="text"
+       name="period1"
+       value="{{ row_data.data[4] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period2"
+       value="{{ row_data.data[5] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period3"
+       value="{{ row_data.data[6] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period4"
+       value="{{ row_data.data[7] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period5"
+       value="{{ row_data.data[8] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period6"
+       value="{{ row_data.data[9] if row_data.data else '' }}">
+</td>
+
+<td>
+<input type="text"
+       name="period7"
+       value="{{ row_data.data[10] if row_data.data else '' }}">
+</td>
+
+<td>
+
+<button type="submit">
+
+Save
+
+</button>
+
+</td>
+
+</form>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="time-table">
+
+<h2>Period Timing</h2>
+
+<table>
+
+<tr>
+<th>Period</th>
+<th>Time</th>
+</tr>
+
+<tr>
+<td>1st Period</td>
+<td>09:00 AM - 09:50 AM</td>
+</tr>
+
+<tr>
+<td>2nd Period</td>
+<td>09:50 AM - 10:40 AM</td>
+</tr>
+
+<tr>
+<td>3rd Period</td>
+<td>10:50 AM - 11:40 AM</td>
+</tr>
+
+<tr>
+<td>4th Period</td>
+<td>11:40 AM - 12:30 PM</td>
+</tr>
+
+<tr>
+<td>5th Period</td>
+<td>01:30 PM - 02:20 PM</td>
+</tr>
+
+<tr>
+<td>6th Period</td>
+<td>02:20 PM - 03:10 PM</td>
+</tr>
+
+<tr>
+<td>7th Period</td>
+<td>03:10 PM - 04:00 PM</td>
+</tr>
+
+</table>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>

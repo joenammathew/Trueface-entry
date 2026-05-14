@@ -1,0 +1,38 @@
+<h2>Results - {{ selected_branch }}</h2>
+
+<button onclick="filter('CSE')">CSE</button>
+<button onclick="filter('ECE')">ECE</button>
+<button onclick="filter('MECH')">MECH</button>
+<button onclick="filter('CIVIL')">CIVIL</button>
+
+<hr>
+
+{% for regno, data in students.items() %}
+
+<div class="student" data-branch="{{ data.branch }}">
+
+    <h3>{{ regno }} ({{ data.branch }})</h3>
+
+    <p>
+        {% for course, grade in data.subjects.items() %}
+            {{ course }}({{ grade }}),
+        {% endfor %}
+    </p>
+
+</div>
+
+{% endfor %}
+
+<script>
+function filter(branch) {
+    let cards = document.querySelectorAll(".student");
+
+    cards.forEach(c => {
+        if (c.dataset.branch === branch) {
+            c.style.display = "block";
+        } else {
+            c.style.display = "none";
+        }
+    });
+}
+</script>

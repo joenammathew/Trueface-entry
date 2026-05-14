@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Students List</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f0f2f5;
+    text-align:center;
+    padding:20px;
+}
+
+table{
+    margin:auto;
+    width:95%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th, td{
+    border:1px solid black;
+    padding:10px;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+
+img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+button{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    color:white;
+    cursor:pointer;
+}
+
+.delete-btn{
+    background:red;
+}
+
+.back-btn{
+    background:#007bff;
+    margin-bottom:20px;
+}
+
+.filter-box{
+    margin:20px auto;
+    padding:15px;
+    background:white;
+    width:95%;
+    border-radius:10px;
+}
+
+select, button.filter-btn{
+    padding:10px;
+    margin:5px;
+}
+
+.filter-btn{
+    background:green;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Registered Students</h1>
+
+<a href="/admin">
+
+<button class="back-btn">
+Back To Admin
+</button>
+
+</a>
+
+<!-- ================= FILTER SECTION ================= -->
+<div class="filter-box">
+
+<form method="GET" action="/view_students">
+
+<!-- BRANCH FILTER -->
+<select name="branch">
+    <option value="">All Branch</option>
+    <option value="CSE">CSE</option>
+    <option value="ECE">ECE</option>
+    <option value="MECH">MECH</option>
+    <option value="CIVIL">CIVIL</option>
+</select>
+
+<!-- SEMESTER FILTER -->
+<select name="semester">
+    <option value="">All Semester</option>
+    <option value="S1">S1</option>
+    <option value="S2">S2</option>
+    <option value="S3">S3</option>
+    <option value="S4">S4</option>
+    <option value="S5">S5</option>
+    <option value="S6">S6</option>
+    <option value="S7">S7</option>
+    <option value="S8">S8</option>
+</select>
+
+<button type="submit" class="filter-btn">
+Filter
+</button>
+
+</form>
+
+</div>
+
+<!-- ================= TABLE ================= -->
+
+<table>
+
+<tr>
+
+<th>ID</th>
+<th>Photo</th>
+<th>Name</th>
+<th>Roll No</th>
+<th>Register No</th>
+<th>Password</th>
+<th>Branch</th>
+<th>Semester</th>
+<th>Delete</th>
+
+</tr>
+
+{% for row in data %}
+
+<tr>
+
+<td>{{ row[0] }}</td>
+
+<td>
+<img src="/static/student_photos/{{ row[7] }}">
+</td>
+
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+<td>{{ row[3] }}</td>
+<td>{{ row[4] }}</td>
+<td>{{ row[5] }}</td>
+<td>{{ row[6] }}</td>
+
+<td>
+<a href="/delete_student/{{ row[0] }}"
+   onclick="return confirm('Are you sure?')">
+
+<button class="delete-btn">
+Delete
+</button>
+
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

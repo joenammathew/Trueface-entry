@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Subjects</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#f0f2f5;
+}
+
+.container{
+    width:600px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    border-radius:10px;
+}
+
+input, select{
+    width:90%;
+    padding:10px;
+    margin:10px;
+}
+
+button{
+    padding:10px 15px;
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+table{
+    width:90%;
+    margin:auto;
+    margin-top:20px;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,td{
+    border:1px solid black;
+    padding:10px;
+}
+
+th{
+    background:#007bff;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Manage Subjects</h1>
+
+<!-- ADD SUBJECT -->
+<div class="container">
+
+<form action="/add_subject" method="POST">
+
+<select name="branch" required>
+    <option value="">Select Branch</option>
+    <option>CSE</option>
+    <option>ECE</option>
+    <option>MECH</option>
+    <option>CIVIL</option>
+</select>
+
+<select name="semester" required>
+    <option value="">Select Semester</option>
+    <option>S1</option><option>S2</option>
+    <option>S3</option><option>S4</option>
+    <option>S5</option><option>S6</option>
+    <option>S7</option><option>S8</option>
+</select>
+
+<input type="text" name="subject_name" placeholder="Subject Name" required>
+<input type="text" name="teacher_name" placeholder="Teacher Name" required>
+
+<button type="submit">Add Subject</button>
+
+</form>
+
+</div>
+
+<!-- FILTER -->
+<div class="container">
+
+<form action="/filter_subjects" method="GET">
+
+<select name="branch">
+    <option value="">Branch</option>
+    <option>CSE</option>
+    <option>ECE</option>
+    <option>MECH</option>
+    <option>CIVIL</option>
+</select>
+
+<select name="semester">
+    <option value="">Semester</option>
+    <option>S1</option><option>S2</option>
+    <option>S3</option><option>S4</option>
+    <option>S5</option><option>S6</option>
+    <option>S7</option><option>S8</option>
+</select>
+
+<button type="submit">Filter</button>
+
+</form>
+
+</div>
+
+<!-- TABLE -->
+<table>
+
+<tr>
+<th>ID</th>
+<th>Branch</th>
+<th>Semester</th>
+<th>Subject</th>
+<th>Teacher</th>
+</tr>
+
+{% for row in data %}
+<tr>
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+<td>{{ row[3] }}</td>
+<td>{{ row[4] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div style="color: green; font-weight: bold;">
+      {% for msg in messages %}
+        <p>{{ msg }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

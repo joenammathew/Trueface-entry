@@ -1,0 +1,17 @@
+<table border="1">
+    <tr>
+        <th>Register No</th>
+        <th>Course Code</th>
+        <th>Grade</th>
+        <th>Status</th>
+    </tr>
+
+    {% for r in results %}
+    <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+        <td>{{ r[3] }}</td>
+    </tr>
+    {% endfor %}
+</table>

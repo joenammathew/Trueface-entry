@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Teacher Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f0f2f5;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+.header{
+    background:#007bff;
+    color:white;
+    padding:20px;
+    font-size:28px;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    width:400px;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0px 0px 10px gray;
+}
+
+button{
+    width:250px;
+    padding:15px;
+    margin:15px;
+    border:none;
+    border-radius:8px;
+    background:#007bff;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+select,
+input{
+    width:90%;
+    padding:10px;
+    margin:10px;
+    border-radius:5px;
+    border:1px solid gray;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+Teacher Dashboard
+
+</div>
+
+<div class="container">
+
+<!-- ATTENDANCE CARD -->
+
+<div class="card">
+
+<h2>Attendance Management</h2>
+
+<a href="/attendance?type=daily">
+
+<button>
+
+Daily Attendance
+
+</button>
+
+</a>
+
+<br>
+
+<a href="/attendance_report?type=weekly">
+
+<button>
+
+Weekly Attendance
+
+</button>
+
+</a>
+
+<br>
+
+<a href="/attendance_report?type=monthly">
+
+<button>
+
+Monthly Attendance
+
+</button>
+
+</a>
+<a href="/teacher_attendance">
+<button>View Attendance</button>
+</a>
+<br>
+
+<a href="/leave_requests">
+
+<button>
+
+Approve / Reject Leave
+
+</button>
+
+</a>
+
+</div>
+
+<!-- RESULT ANALYSIS -->
+
+<div class="card">
+
+<h2>Upload Result PDF</h2>
+
+<form action="/analyze_pdf"
+      method="POST"
+      enctype="multipart/form-data">
+
+<select name="branch"
+        required>
+
+<option value="">
+Select Branch
+</option>
+
+<option value="CSE">
+CSE
+</option>
+
+<option value="ECE">
+ECE
+</option>
+
+<option value="MECH">
+MECH
+</option>
+
+<option value="CIVIL">
+CIVIL
+</option>
+
+</select>
+
+<br>
+
+<select name="semester"
+        required>
+
+<option value="">
+Select Semester
+</option>
+
+<option>S1</option>
+<option>S2</option>
+<option>S3</option>
+<option>S4</option>
+<option>S5</option>
+<option>S6</option>
+<option>S7</option>
+<option>S8</option>
+
+</select>
+
+<br>
+
+<input type="file"
+       name="pdf"
+       required>
+
+<br><br>
+
+<button type="submit">
+
+Upload & Analyze PDF
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>
